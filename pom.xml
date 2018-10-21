@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pl.koziolekweb.jlupin</groupId>
+    <artifactId>jlns-event-store</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <repositories>
+        <!-- Repository is also accessible using https connection: -->
+        <!-- https://support.jlupin.com/maven2/ -->
+        <repository>
+            <id>jlupin-central</id>
+            <name>jlupin</name>
+            <url>http://support.jlupin.com/maven2/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <!-- Repository is also accessible using https connection: -->
+        <!-- https://support.jlupin.com/maven2/ -->
+        <pluginRepository>
+            <id>jlupin-central</id>
+            <name>jlupin</name>
+            <url>http://support.jlupin.com/maven2/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <modules>
+        <module>common-pojo</module>
+        <module>common-util</module>
+        <module>event-store/interfaces</module>
+        <module>event-store/implementation</module>
+        <module>event-store-gui/implementation</module>
+        <module>integration-test</module>
+    </modules>
+
+    <properties>
+        <jlupin.platform.client.version>1.5.0.3</jlupin.platform.client.version>
+        <jlupin.platform.maven.plugin.version>1.5.0.0</jlupin.platform.maven.plugin.version>
+        <jlupin.skipDeploy>true</jlupin.skipDeploy>
+        <maven.surefire.skipTests>false</maven.surefire.skipTests>
+
+        <spring.context.version>5.0.8.RELEASE</spring.context.version>
+        <slf4j.version>1.8.0-alpha2</slf4j.version>
+        <log4j.slf4j.bridge.version>2.11.0</log4j.slf4j.bridge.version>
+        <maven.failsafe.plugin.version>2.20</maven.failsafe.plugin.version>
+        <maven.surefire.plugin.version>2.20</maven.surefire.plugin.version>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+                <configuration>
+                    <skipTests>${maven.surefire.skipTests}</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.jlupin</groupId>
+                    <artifactId>jlupin-platform-maven-plugin</artifactId>
+                    <version>${jlupin.platform.maven.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>jlupin-zip</id>
+                            <goals>
+                                <goal>zip</goal>
+                            </goals>
+                            <configuration>
+                                <additionalFilesDirectories>
+                                    <param>../additional-files</param>
+                                </additionalFilesDirectories>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>jlupin-deploy</id>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>deploy</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven.failsafe.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>integration-test</id>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <includes>
+                            <include>**/Test*.java</include>
+                            <include>**/*Test.java</include>
+                            <include>**/*Tests.java</include>
+                            <include>**/*TestCase.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencyManagement>
+
+        <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.2</version>
+            </dependency>
+            <dependency>
+                <groupId>io.vavr</groupId>
+                <artifactId>vavr</artifactId>
+                <version>0.9.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>5.3.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>3.11.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-vavr</artifactId>
+                <version>0.0.1</version>
+                <scope>test</scope>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+</project>

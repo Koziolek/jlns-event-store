@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>jlns-event-store</artifactId>
+        <groupId>pl.koziolekweb.jlupin</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>./../../pom.xml</relativePath>
+    </parent>
+
+    <name>event-store</name>
+    <artifactId>event-store-implementation</artifactId>
+
+    <properties>
+        <jlupin.skipDeploy>false</jlupin.skipDeploy>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.context.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>pl.koziolekweb.jlupin</groupId>
+            <artifactId>event-store-interfaces</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pl.koziolekweb.jlupin</groupId>
+            <artifactId>common-util</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>pl.koziolekweb.jlupin</groupId>
+            <artifactId>common-pojo</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- JLupin dependencies -->
+        <dependency>
+            <groupId>com.jlupin</groupId>
+            <artifactId>jlupin-client-assembly</artifactId>
+            <version>${jlupin.platform.client.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.slf4j.bridge.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.jlupin</groupId>
+                <artifactId>jlupin-platform-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

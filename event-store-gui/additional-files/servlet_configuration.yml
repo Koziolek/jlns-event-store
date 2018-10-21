@@ -1,0 +1,88 @@
+SERVERS:
+  HTTP:
+    type: spring_boot
+    httpPrimaryPort: -1
+    httpSecondaryPort: -1
+    waitForFinishExecuteAllRequests: true
+    waitToShutdownThreadsOnStop: 5000
+    springBootLoaderClassName: org.springframework.boot.loader.WarLauncher
+    contextName: /event-store-gui
+    isStartOnMainServerInitialize: true
+    httpStickySession: false
+  TRANSMISSION:
+    readTimeout: 480000
+    isWaitForFinishExecuteAllRequests: false
+    waitToShutdownThreadsOnStop: 60000
+    backlog: 0
+    receiveBufferSize: 0
+    isReuseAddress: false
+    threadPoolSize: 8
+    isLogPeriodicOnDebug: true
+    isDestroyThreadOnTimeout: false
+    threadExecutingTimeOut: 3600000
+    isStartOnMainServerInitialize: true
+PROPERTIES:
+  platformVersion: '1.5.0.3'
+  #jvmOptions1: '-Xms128M -Xmx512M -agentlib:jdwp=transport=dt_socket,address=12998,server=y,suspend=n'
+  jvmOptions1: '-Xms128M -Xmx512M' #jvmOptions_2 - default the same as jvmOptions_1
+  #jvmOptions2: '-Xms128M -Xmx512M'
+  externalPort: '8000'
+  version: '1.0-SNAPSHOT'
+  switchDelayTime: 1000
+  connectionSocketTimeoutInMillis: 1000
+  readTimeoutInMillis: 30000
+  isKeepAlive: false
+  isOOBInline: false
+  isTcpNoDelay: false
+  isReuseAddress: false
+  sendBufferSize: 0
+  receiveBufferSize: 0
+  soLinger: 0
+  trafficClass: 0
+  #javaExecutablePath: 'c:\\jvm\\bin\\java.exe'
+  #additionalClassPath: 'c:\\temp\\*'
+  isStartOnMainServerInitialize: true
+  priorityStartOnMainServerInitialize: 5
+  waitForProcessInitResponseTimeInMillis: 90000
+  waitForProcessStartResponseTimeInMillis: 90000
+  waitForProcessDestroyResponseTimeInMillis: 30000
+  isAllFilesToJVMAppClassLoader: true
+  #isStackDumping: true
+  isArchiveOnStart: false
+  startLogMode: INFO
+  isInitErrorCauseWithNetworkInformation: true
+  isJmxEnabled: true
+  jmxOptions: '-Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false'
+  jmxPrimaryPort: -1
+  jmxSecondaryPort: -1
+  isExternalHealthcheck: false
+  externalHealthcheckURI: '/sampleURI/'
+  httpStickySessionCookieOptions: 'option1=value1'
+  checkAvailableScript: 'function isAvailable(checkResponseTimeInMillis, jrmcActiveThreads, jrmcMaxThreads,
+                                              queueActiveThreads, queueMaxThreads, servletActiveThreads, servletMaxThreads,
+                           	                  jvmMaxMemoryInBytes, jvmTotalMemoryInBytes, jvmFreeMemoryInBytes,
+                           	                  jvmProcessCpuLoadInPercentage, userAvailableFlag) {
+                           var isAvailableByUser = Boolean(userAvailableFlag);
+                           if(checkResponseTimeInMillis > 20000 || !isAvailableByUser) {
+                              return false;
+                           }
+                           return true;
+                         }'
+INITIALIZING_LOGGER:
+  #directoryPath: '/logs/server'
+  #fileName: 'file_name'
+  fileExtension: 'log'
+  fileSizeInMB: 20
+  maxFiles: 10
+MEMORY_ERRORS:
+  isRestartOnError: true
+  howManyTimes: 4
+  percentageGrowth: 15
+  isHeapDump: true
+THREAD_POOLS:
+  THREAD_POOL_1:
+    size: 8
+    waitingTimeForTasksCompletionInMillis: 10000
+  #THREAD_POOL_2:
+  #  size: 8
+  #  waitingTimeForTasksCompletionInMillis: 10000
